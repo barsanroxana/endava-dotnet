@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FoodPal.Providers.DataAccess.UnitOfWork;
+using FoodPal.Providers.DomainModels;
 using FoodPal.Providers.Dtos;
 using FoodPal.Providers.Services.Contracts;
 using System;
@@ -19,7 +20,21 @@ namespace FoodPal.Providers.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         }
-        public async Task<int> CreateAsync(NewCatalogueItemDto catalogueItem)
+        
+        //public async Task<int> CreateAsync(NewCatalogueItemDto catalogueItem)
+        //{
+        //    var itemModel = _mapper.Map<NewCatalogueItemDto, DomainModels.CatalogueItem>(catalogueItem);
+
+        //    var catalogue = await _unitOfWork.CatalogueRepository.SingleOrDefaultAsync(x => x.Id == catalogueItem.CatalogueId);
+
+        //    itemModel.Catalogue = catalogue;
+
+        //    await _unitOfWork.CatalogueItemsRepository.AddAsync(itemModel);
+        //    await _unitOfWork.CommitAsync();
+        //    return itemModel.Id;
+        //}
+
+        public async Task<CatalogueItemDto> CreateAsync(NewCatalogueItemDto catalogueItem)
         {
             var itemModel = _mapper.Map<NewCatalogueItemDto, DomainModels.CatalogueItem>(catalogueItem);
 
@@ -29,7 +44,8 @@ namespace FoodPal.Providers.Services
 
             await _unitOfWork.CatalogueItemsRepository.AddAsync(itemModel);
             await _unitOfWork.CommitAsync();
-            return itemModel.Id;
+
+            return _mapper.Map<CatalogueItem, CatalogueItemDto>(itemModel);
         }
 
 
@@ -70,6 +86,10 @@ namespace FoodPal.Providers.Services
 
         public async Task UpdateAsync(CatalogueItemDto catalogueItem)
         {
+            var entity = await _unitOfWork.CatalogueItemsRepository.SingleOrDefaultAsync(x => x.Id == catalogueItem.Id);
+
+            entity.Name = catalogueItem.Name;
+            entity.Price = catalogueItem.Price;
             await _unitOfWork.CommitAsync();
         }
     }

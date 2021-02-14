@@ -13,6 +13,7 @@ namespace FoodPal.Providers.Services
 
             services.AddTransient<IProviderService, ProviderService>();
             services.AddTransient<ICatalogueItemService, CatalogueItemService>();
+            services.AddTransient<ICatalogueService, CatalogueService>();
 
             return services;
         }

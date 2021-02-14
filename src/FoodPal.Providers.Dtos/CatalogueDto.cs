@@ -13,5 +13,6 @@ namespace FoodPal.Providers.Dtos
 
         public List<CatalogueItemDto> Items { get; set; }
 
+        public ProviderDto Provider { get; set; }
     }
 }

@@ -12,7 +12,9 @@ namespace FoodPal.Providers.Services.Contracts
 
         Task<bool> CatalogueItemExistsAsync(string catalogueItemName, int providerId);
 
-        Task<int> CreateAsync(NewCatalogueItemDto catalogueItem);
+        //Modificare metoda pentru a returna un obiect de tip CatalogueItemDto
+        // Task<int> CreateAsync(NewCatalogueItemDto catalogueItem);
+        Task<CatalogueItemDto> CreateAsync(NewCatalogueItemDto catalogueItem);
 
         Task UpdateAsync(CatalogueItemDto catalogueItem);
 

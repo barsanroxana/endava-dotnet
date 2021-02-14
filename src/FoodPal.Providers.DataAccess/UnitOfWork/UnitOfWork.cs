@@ -10,21 +10,20 @@ namespace FoodPal.Providers.DataAccess.UnitOfWork
         private readonly ProvidersContext _providersContext;
         private ProviderRepository _providerRepo;
         private CatalogueItemsRepository _catalogueItemsRepo;
-        private Repository<Catalogue> _catalogueRepo;
+        //private Repository<Catalogue> _catalogueRepo;
+        private CatalogueRepository _catalogueRepo;
 
         public UnitOfWork(ProvidersContext providersContext)
         {
             _providersContext = providersContext ?? throw new ArgumentNullException(nameof(providersContext));
         }
 
-        public IProviderRepository ProviderRepository =>
-            _providerRepo ??= new ProviderRepository(_providersContext);
+        public IProviderRepository ProviderRepository => _providerRepo ??= new ProviderRepository(_providersContext);
 
-        public ICatalogueItemsRepository CatalogueItemsRepository =>
-                _catalogueItemsRepo ??= new CatalogueItemsRepository(_providersContext);
+        public ICatalogueItemsRepository CatalogueItemsRepository =>_catalogueItemsRepo ??= new CatalogueItemsRepository(_providersContext);
 
-        public IRepository<Catalogue> CatalogueRepository =>
-            _catalogueRepo ??= new Repository<Catalogue>(_providersContext);
+        // public IRepository<Catalogue> CatalogueRepository => _catalogueRepo ??= new Repository<Catalogue>(_providersContext);
+        public ICatalogueRepository CatalogueRepository => _catalogueRepo ??= new CatalogueRepository(_providersContext);
 
         public async Task<int> CommitAsync()
         {

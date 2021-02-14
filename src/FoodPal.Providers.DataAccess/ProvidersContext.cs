@@ -13,6 +13,7 @@ namespace FoodPal.Providers.DataAccess
 
         public DbSet<Provider> Providers { get; set; }
         public DbSet<CatalogueItem> CatalogueItems { get; set; }
+        public DbSet<Catalogue> Catalogue { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
